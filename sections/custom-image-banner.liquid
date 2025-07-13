@@ -1,0 +1,158 @@
+{{ 'component-custom-image-banner.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'handle-hamburger.js' | asset_url }}" defer="defer"></script>
+
+<div class="custom-banner-section">
+  <!-- Header -->
+  <div class="custom-banner-header">
+    <div class="page-width custom-banner-header-inner">
+      <button class="hamburger mobile-only" onclick="toggleDropdown(this)">
+        <div class="hamburger-icon">
+          {% render 'banner-hamburger-icon' %}
+        </div>
+      </button>
+      <div class="header-title">
+        <h3>{{ section.settings.header_title }}</h3>
+      </div>
+      <div class="desktop-only">
+        <p class="caption-text">{{ section.settings.header_caption }}</p>
+      </div>
+      <div class="desktop-only">
+        <a href="{{ section.settings.header_button_link }}" class="button-secondary">
+          <span>{{- section.settings.header_button_text -}}</span>
+          <span class="arrow-icon">
+            {% render 'button-right-arrow-icon' %}
+          </span>
+        </a>
+      </div>
+    </div>
+    <div class="custom-banner-dropdown mobile-only" id="mobileDropdown" style="display:none;">
+      <div>
+        <p class="caption-text">{{ section.settings.header_caption }}</p>
+      </div>
+      <div class="header-mobile-button_container">
+        <a href="{{ section.settings.header_button_link }}" class="button-secondary">
+          <span>{{- section.settings.header_button_text -}}</span>
+          <span class="arrow-icon">
+            {% render 'button-right-arrow-icon' %}
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Title & Subtitle -->
+  <div class="custom-banner-mobile-top mobile-only">
+    <h2>{{ section.settings.banner_title }}</h2>
+    <p class="banner-subtitle">
+      {{ section.settings.banner_subtitle_mobile | default: section.settings.banner_subtitle_desktop }}
+    </p>
+  </div>
+
+  <!-- Image Banner -->
+  <div class="custom-banner-image-container">
+    {% if section.settings.banner_image %}
+      <img src="{{ section.settings.banner_image | img_url: 'master' }}" alt="Banner Image" style="width:100%;">
+    {% endif %}
+    <div class="custom-banner-content desktop-only">
+      <h2>{{ section.settings.banner_title }}</h2>
+      <p class="banner-subtitle">{{ section.settings.banner_subtitle_desktop }}</p>
+      <a href="{{ section.settings.banner_button_link }}" class="button-primary">
+        <span>{{- section.settings.banner_button_text -}}</span>
+        <span class="arrow-icon">
+          {% render 'button-right-arrow-icon' %}
+        </span>
+      </a>
+    </div>
+    <div class="custom-banner-content mobile-only">
+      <a href="{{ section.settings.banner_button_link }}" class="button-primary">
+        <span>{{- section.settings.banner_button_text -}}</span>
+        <span class="arrow-icon">
+          {% render 'button-right-arrow-icon' %}
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="custom-banner-footer">
+    <div class="custom-banner-footer-inner">
+      <p class="desktop-only">{{ section.settings.footer_text_desktop }}</p>
+      <p class="mobile-only">
+        {{ section.settings.footer_text_mobile | default: section.settings.footer_text_desktop }}
+      </p>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Image Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "header_title",
+      "label": "Header Title"
+    },
+    {
+      "type": "text",
+      "id": "header_caption",
+      "label": "Header Caption"
+    },
+    {
+      "type": "text",
+      "id": "header_button_text",
+      "label": "Header Button Text"
+    },
+    {
+      "type": "url",
+      "id": "header_button_link",
+      "label": "Header Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Banner Title"
+    },
+    {
+      "type": "text",
+      "id": "banner_subtitle_desktop",
+      "label": "Banner Subtitle (Desktop)"
+    },
+    {
+      "type": "text",
+      "id": "banner_subtitle_mobile",
+      "label": "Banner Subtitle (Mobile)"
+    },
+    {
+      "type": "text",
+      "id": "banner_button_text",
+      "label": "Banner Button Text"
+    },
+    {
+      "type": "url",
+      "id": "banner_button_link",
+      "label": "Banner Button Link"
+    },
+    {
+      "type": "text",
+      "id": "footer_text_desktop",
+      "label": "Footer Text (Desktop)"
+    },
+    {
+      "type": "text",
+      "id": "footer_text_mobile",
+      "label": "Footer Text (Mobile)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Image Banner"
+    }
+  ]
+}
+{% endschema %}
