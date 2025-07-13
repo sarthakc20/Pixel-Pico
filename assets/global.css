@@ -2,34 +2,49 @@
    Typography + Font Variables
 ================================= */
 :root {
-  --font-primary: 'Georgia', serif;
-  --font-secondary: 'Helvetica Neue', sans-serif;
+  --font-primary: "Georgia", serif;
+  --font-secondary: "Helvetica Neue", sans-serif;
 
-  --text-primary: #1A1A1A;
-  --text-secondary: #5A5A5A;
-  --text-muted: #A0A0A0;
-  --text-accent: #9B2D2D;
+  --text-primary: #1a1a1a;
+  --text-secondary: #5a5a5a;
+  --text-muted: #a0a0a0;
+  --text-accent: #9b2d2d;
 
-  --bg-body: #FFFFFF;
-  --bg-light: #F9F9F9;
-  --bg-sale: #FFF1F0;
+  --bg-body: #ffffff;
+  --bg-light: #f9f9f9;
+  --bg-sale: #fff1f0;
 
-  --button-bg: #1A1A1A;
+  --button-bg: #1a1a1a;
   --button-bg-hover: #000000;
-  --border-color: #E5E5E5;
+  --border-color: #e5e5e5;
 }
 
 /* ===============================
    Base Styles
 ================================= */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-primary);
   font-weight: 600;
 }
 
-p, span, a, button {
+p,
+span,
+a,
+button {
   font-family: var(--font-secondary);
+}
+
+.field__input,
+.select__select,
+.customer .field input,
+.customer select {
+  font-family: var(--font-primary);
 }
 
 /* ===============================
