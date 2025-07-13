@@ -22,11 +22,6 @@
 /* ===============================
    Base Styles
 ================================= */
-body {
-  font-family: var(--font-primary);
-  color: var(--text-primary);
-  background-color: var(--bg-body);
-}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-primary);
