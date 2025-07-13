@@ -16,6 +16,15 @@
   --button-bg: #1a1a1a;
   --button-bg-hover: #000000;
   --border-color: #e5e5e5;
+
+  --color-primary-text: #000000;
+  --color-primary-bg: #000000;
+  --color-secondary-bg: #FFF544;
+  --color-light-primary: #F5F5F5;
+  --color-light-secondary: #F2F2F2;
+  --color-light-alternate: #F7F7F7;
+  --color-lightest: #FFFFFF;
+  --color-box-shadow: rgba(0, 0, 0, 0.1);
 }
 
 /* Base Styles */
@@ -49,40 +58,114 @@ button,
 
 /* Buttons */
 
-/* -- Primary Button -- */
-.button-primary {
-  background-color: var(--button-bg);
-  color: white;
-  border: 1px solid transparent;
-  padding: 12px 24px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 14px;
+/* Base Button Style (Shared) */
+.primary-button,
+.secondary-button {
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s ease;
+}
+
+/* Primary Button */
+.primary-button {
+  font-family: var(--font-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--color-primary-bg);
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-family: var(--font-secondary);
-}
-
-.button-primary:hover {
-  background-color: var(--button-bg-hover);
-}
-
-/* -- Secondary Button -- */
-.button-secondary {
-  background-color: var(--bg-light);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-  padding: 12px 24px;
+  color: var(--color-lightest);
+  padding: 12px 16px;
+  gap: 20px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20.48px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-family: var(--font-secondary);
+  text-decoration: none;
 }
 
-.button-secondary:hover {
-  background-color: #efefef;
+/* Secondary Button */
+.secondary-button {
+  font-family: var(--font-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--color-secondary-bg);
+  border: none;
+  cursor: pointer;
+  color: var(--color-primary-text);
+  padding: 12px 16px;
+  gap: 20px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20.48px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* Hover Effects: Primary Button */
+.primary-button::before,
+.secondary-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  transition: left 0.4s ease;
+  z-index: 0;
+}
+
+.primary-button::before {
+  background-color: var(--color-secondary-bg);
+}
+
+.secondary-button::before {
+  background-color: var(--color-primary-bg);
+}
+
+/* Hover Styles */
+.primary-button:hover::before,
+.secondary-button:hover::before {
+  left: 0;
+}
+
+.primary-button:hover {
+  color: var(--color-primary-text);
+  box-shadow: 0 2px 4px var(--color-box-shadow);
+}
+
+.secondary-button:hover {
+  color: var(--color-lightest);
+  box-shadow: 0 2px 4px var(--color-box-shadow);
+}
+
+.secondary-button .arrow-icon svg path {
+  fill: var(--color-primary-text);
+}
+
+.primary-button:hover .arrow-icon svg path {
+  fill: var(--color-primary-text);
+}
+
+.secondary-button:hover .arrow-icon svg path {
+  fill: var(--color-lightest);
+}
+
+/* Keep Text and Icon Above the Animation Layer */
+.primary-button > *,
+.secondary-button > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* -- Primary Outline Button -- */
