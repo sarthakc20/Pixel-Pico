@@ -43,7 +43,8 @@ button {
 .field__input,
 .select__select,
 .customer .field input,
-.customer select {
+.customer select,
+.text-area {
   font-family: var(--font-primary);
 }
 
