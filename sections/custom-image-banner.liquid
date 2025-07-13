@@ -18,6 +18,7 @@
       </div>
       <div class="desktop-only">
         <a href="{{ section.settings.header_button_link }}" class="secondary-button">
+        <a href="{{ section.settings.header_button_link }}" class="secondary-button">
           <span>{{- section.settings.header_button_text -}}</span>
           <span class="arrow-icon">
             {% render 'button-right-arrow-icon' %}
@@ -30,6 +31,7 @@
         <p class="caption-text">{{ section.settings.header_caption }}</p>
       </div>
       <div class="header-mobile-button_container">
+        <a href="{{ section.settings.header_button_link }}" class="secondary-button">
         <a href="{{ section.settings.header_button_link }}" class="secondary-button">
           <span>{{- section.settings.header_button_text -}}</span>
           <span class="arrow-icon">
@@ -57,6 +59,7 @@
       <h2>{{ section.settings.banner_title }}</h2>
       <p class="banner-subtitle">{{ section.settings.banner_subtitle_desktop }}</p>
       <a href="{{ section.settings.banner_button_link }}" class="primary-button">
+      <a href="{{ section.settings.banner_button_link }}" class="primary-button">
         <span>{{- section.settings.banner_button_text -}}</span>
         <span class="arrow-icon">
           {% render 'button-right-arrow-icon' %}
@@ -64,6 +67,7 @@
       </a>
     </div>
     <div class="custom-banner-content mobile-only">
+      <a href="{{ section.settings.banner_button_link }}" class="primary-button">
       <a href="{{ section.settings.banner_button_link }}" class="primary-button">
         <span>{{- section.settings.banner_button_text -}}</span>
         <span class="arrow-icon">
