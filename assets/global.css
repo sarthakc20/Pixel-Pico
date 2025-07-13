@@ -36,7 +36,8 @@ h6 {
 p,
 span,
 a,
-button {
+button,
+.text-body {
   font-family: var(--font-secondary);
 }
 
@@ -44,7 +45,8 @@ button {
 .select__select,
 .customer .field input,
 .customer select,
-.text-area {
+.text-area,
+.quantity__input {
   font-family: var(--font-primary);
 }
 
