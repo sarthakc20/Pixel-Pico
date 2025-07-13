@@ -1,0 +1,5 @@
+settings_data.json
+templates/customers/*.json
+templates/*.json
+sections/site-*-group.json
+locales/*
