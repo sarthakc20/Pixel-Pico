@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 /* ===============================
    Typography + Font Variables
@@ -144,4 +145,152 @@ button,
   border-radius: 4px;
   display: inline-block;
   font-family: var(--font-secondary);
+=======
+
+/* ===============================
+   Typography + Font Variables
+================================= */
+:root {
+  --font-primary: "Georgia", serif;
+  --font-secondary: "Helvetica Neue", sans-serif;
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #5a5a5a;
+  --text-muted: #a0a0a0;
+  --text-accent: #9b2d2d;
+
+  --bg-body: #ffffff;
+  --bg-light: #f9f9f9;
+  --bg-sale: #fff1f0;
+
+  --button-bg: #1a1a1a;
+  --button-bg-hover: #000000;
+  --border-color: #e5e5e5;
+}
+
+/* ===============================
+   Base Styles
+================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-primary);
+  font-weight: 600;
+}
+
+p,
+span,
+a,
+button,
+.text-body {
+  font-family: var(--font-secondary);
+}
+
+.field__input,
+.select__select,
+.customer .field input,
+.customer select,
+.text-area,
+.quantity__input {
+  font-family: var(--font-primary);
+}
+
+/* ===============================
+   Buttons
+================================= */
+
+/* -- Primary Button -- */
+.button-primary {
+  background-color: var(--button-bg);
+  color: white;
+  border: 1px solid transparent;
+  padding: 12px 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: var(--font-secondary);
+}
+
+.button-primary:hover {
+  background-color: var(--button-bg-hover);
+}
+
+/* -- Secondary Button -- */
+.button-secondary {
+  background-color: var(--bg-light);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 12px 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: var(--font-secondary);
+}
+
+.button-secondary:hover {
+  background-color: #efefef;
+}
+
+/* -- Primary Outline Button -- */
+.button-primary-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
+  padding: 12px 24px;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-secondary);
+}
+
+.button-primary-outline:hover {
+  background-color: var(--text-primary);
+  color: white;
+}
+
+/* -- Secondary Outline Button -- */
+.button-secondary-outline {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--text-secondary);
+  padding: 12px 24px;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-secondary);
+}
+
+.button-secondary-outline:hover {
+  background-color: var(--text-secondary);
+  color: white;
+}
+
+/* ===============================
+   Utility
+================================= */
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.badge-sale {
+  background-color: var(--bg-sale);
+  color: var(--text-accent);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  font-family: var(--font-secondary);
+>>>>>>> e24f6a670e684295a608b2bdad3a2a04c1ea07d2
 }
