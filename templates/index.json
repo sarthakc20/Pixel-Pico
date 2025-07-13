@@ -9,6 +9,24 @@
  */
 {
   "sections": {
+    "custom_image_banner_nCcwcR": {
+      "type": "custom-image-banner",
+      "name": "Custom Image Banner",
+      "settings": {
+        "header_title": "Pixel Pico",
+        "header_caption": "Where every pixel pops with personality",
+        "header_button_text": "See more",
+        "header_button_link": "shopify://collections/all",
+        "banner_image": "shopify://shop_images/Group_1000008197.png",
+        "banner_title": "Where Aesthetic Lives",
+        "banner_subtitle_desktop": "Let Your Space Speak in Pixels & Patterns",
+        "banner_subtitle_mobile": "Form Meets Function",
+        "banner_button_text": "Who we are",
+        "banner_button_link": "",
+        "footer_text_desktop": "Crafted for the Curious. Designed to Delight.",
+        "footer_text_mobile": "Small Details. Big Impact."
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -80,6 +98,7 @@
     }
   },
   "order": [
+    "custom_image_banner_nCcwcR",
     "image_banner",
     "featured_collection"
   ]
