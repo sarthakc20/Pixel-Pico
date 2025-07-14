@@ -1,0 +1,35 @@
+<div class="product-popup" id="product-grid-popup-modal" style="display: none;">
+  <div class="popup-overlay"></div>
+  <div class="popup-content">
+    <button class="popup-close">
+      {% render 'popup-close-icon' %}
+    </button>
+
+    <div class="popup-product-main">
+      <div class="popup-product-image"></div>
+      <div class="popup-product-details">
+        <h2 class="popup-product-title"></h2>
+        <p class="popup-product-price" id="popup-price-container" data-money-format="{{ shop.money_format }}"></p>
+        <p class="popup-product-description"></p>
+      </div>
+    </div>
+
+    <div class="option-container">
+      <div class="option-boxes"></div>
+      <!-- For first variant (boxes) -->
+    </div>
+
+    <div class="option-container">
+      <label for="option-select"></label>
+      <select id="option-select"></select>
+      <!-- For second variant (dropdown) -->
+    </div>
+
+    <button type="button" class="add-to-cart-btn primary-button" data-variant-id="">
+      <span>Add to Cart</span>
+      <span class="arrow-icon">
+        {% render 'button-right-arrow-icon' %}
+      </span>
+    </button>
+  </div>
+</div>

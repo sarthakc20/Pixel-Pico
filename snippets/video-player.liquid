@@ -1,0 +1,55 @@
+{% comment %}
+  ------------------------------------------------------------------------------
+    Snippet: Video player
+
+    @param {String} [class_component] - Component class.
+    @param {String} [class_video] - Video class used target element via
+    JS (video-js).
+    @param {String} [class_play_button] - play button class.
+    @param {String} [class_pause_button] - pause button class.
+    @param {Object} [video] - Video object.
+    @param {String} [image_size] - Image size used for video poster.
+    @param {Boolean} [autoplay] - Video autoplay.
+    @param {Boolean} [loop] - Video loop.
+    @param {Boolean} [muted] - Video muted.
+  ------------------------------------------------------------------------------
+{% endcomment %}
+<script src="{{ 'video.js' | asset_url }}" defer="defer"></script>
+<video-player class="{{ class_component }}">
+  {{
+    video
+    | video_tag:
+      class: class_video,
+      image_size: image_size,
+      autoplay: autoplay,
+      controls: false,
+      loop: loop,
+      muted: muted
+  }}
+
+  <button
+    class="
+      {{ class_play_button }}
+      {% if autoplay %}
+        is-active
+      {% endif %}
+    "
+    aria-label="Play button"
+    js-video-player="play"
+  >
+    {% render 'icon-play' %}
+  </button>
+
+  <button
+    class="
+      {{ class_pause_button }}
+      {% if autoplay == false %}
+        is-active
+      {% endif %}
+    "
+    aria-label="Pause button"
+    js-video-player="pause"
+  >
+    {% render 'icon-pause' %}
+  </button>
+</video-player>
