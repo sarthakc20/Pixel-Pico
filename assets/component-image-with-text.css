@@ -288,7 +288,7 @@
   margin-top: 0;
 }
 
-.image-with-text--overlap .button--primary {
+.image-with-text-main .image-with-text--overlap a {
   margin-top: var(--spacing-l);
 }
 
