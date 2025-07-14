@@ -134,11 +134,68 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "desktop_media_type": "video",
-        "desktop_image": "shopify://shop_images/Group_1000008197.png",
+        "desktop_media_type": "image",
+        "desktop_image": "shopify://shop_images/df194a735e08372d40f681ff3f01637f_jpg_960x960q80_jpg.webp",
         "desktop_video": "shopify://files/videos/2a174c1e5e954e5b93c5bffbf480a88f.mp4",
         "mobile_media_type": "image",
         "mobile_image": "shopify://shop_images/abstract-organic-pattern-design-background_1048-19286.avif",
+        "content_layout": "no-overlap",
+        "height": "medium",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "page_full_width": true,
+        "mobile_content_alignment": "left",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_t64FnC": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption_j99wUE": {
+          "type": "caption",
+          "settings": {
+            "caption": "Caption"
+          }
+        },
+        "heading_rdyK3Y": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image with text"
+          }
+        },
+        "text_geMbQH": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+          }
+        },
+        "button_QVykND": {
+          "type": "button",
+          "settings": {
+            "button_label": "Learn more",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "caption_j99wUE",
+        "heading_rdyK3Y",
+        "text_geMbQH",
+        "button_QVykND"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "desktop_media_type": "image",
+        "desktop_image": "shopify://shop_images/df194a735e08372d40f681ff3f01637f_jpg_960x960q80_jpg.webp",
+        "desktop_video": "shopify://files/videos/2a174c1e5e954e5b93c5bffbf480a88f.mp4",
+        "mobile_media_type": "image",
+        "mobile_image": "shopify://shop_images/theme_cover_image.jpg",
         "content_layout": "overlap",
         "height": "medium",
         "desktop_image_width": "medium",
@@ -158,6 +215,7 @@
     "custom_image_banner_nCcwcR",
     "image_banner",
     "featured_collection",
-    "image_with_text_zAmMg4"
+    "image_with_text_zAmMg4",
+    "image_with_text_t64FnC"
   ]
 }
