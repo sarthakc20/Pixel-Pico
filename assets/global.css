@@ -19,12 +19,126 @@
 
   --color-primary-text: #000000;
   --color-primary-bg: #000000;
-  --color-secondary-bg: #FFF544;
-  --color-light-primary: #F5F5F5;
-  --color-light-secondary: #F2F2F2;
-  --color-light-alternate: #F7F7F7;
-  --color-lightest: #FFFFFF;
+  --color-secondary-bg: #fff544;
+  --color-secondary-bg-dark: #c9c134;
+  --color-light-primary: #f5f5f5;
+  --color-light-secondary: #f2f2f2;
+  --color-light-alternate: #f7f7f7;
+  --color-lightest: #ffffff;
   --color-box-shadow: rgba(0, 0, 0, 0.1);
+
+  /* ------------- Spacing ------------- */
+  --spacing-4xs: 0.1rem;
+  /* 1px */
+  --spacing-3xs: 0.2rem;
+  /* 2px */
+  --spacing-2xs: 0.4rem;
+  /* 4px */
+  --spacing-xs: 0.8rem;
+  /* 8px */
+  --spacing-s: 1.2rem;
+  /* 12px */
+  --spacing-m: 1.6rem;
+  /* 16px */
+  --spacing-l: 2.4rem;
+  /* 24px */
+  --spacing-xl: 3.2rem;
+  /* 32px */
+  --spacing-xl2: 3.7rem;
+  /* 37px */
+  --spacing-2xl: 4rem;
+  /* 40px */
+  --spacing-3xl: 4.8rem;
+  /* 48px */
+  --spacing-4xl: 5.6rem;
+  /* 56px */
+  --spacing-5xl: 6.4rem;
+  /* 64px */
+  --spacing-6xl: 7.2rem;
+  /* 72px */
+  --spacing-7xl: 8rem;
+  /* 80px */
+  --spacing-8xl: 9.6rem;
+  /* 96px */
+  --spacing-9xl: 12rem;
+  /* 120px */
+  --spacing-10xl: 14rem;
+  /* 140px */
+
+  --spacing-padding-top-50vh: 50vh;
+  /* variable for padding-top */
+  --letter-spacing-h3: -1%;
+  /* variable for letter-spacing h3 */
+  --letter-spacing-h1: -1%;
+  /* variable for letter-spacing h1 */
+
+  /*------- Border radius ------- */
+
+  --primary-button-border-radius: 0.4rem;
+  /* 4px */
+  --secondary-button-border-radius: 0.4rem;
+  /* 4px */
+  --quantity-button-border-radius: 2.56rem;
+  /* 41px */
+  --image-border-radius-iframe: 0.8rem;
+  /* 8px */
+
+  /* ------------- Font Size ------------- */
+  --font-size-2xs: 1rem;
+  /* 10px */
+  --font-size-xs: 1.2rem;
+  /* 12px */
+  --font-size-s: 1.4rem;
+  /* 14px */
+  --font-size-pagination: 1.5rem;
+  /* 15px */
+  --font-size-m: 1.6rem;
+  /* 16px */
+  --font-size-l: 1.8rem;
+  /* 18px */
+  --font-size-xl: 2rem;
+  /* 20px */
+  --font-size-2xl: 2.4rem;
+  /* 24px */
+  --font-size-3xl: 2.8rem;
+  /* 28px */
+  --font-size-4xl: 3.2rem;
+  /* 32px */
+  --font-size-5xl: 3.6rem;
+  /* 36px */
+  --font-size-6xl: 4rem;
+  /* 40px */
+  --font-size-7xl: 4.2rem;
+  /* 42px */
+  --font-size-8xl: 4.4rem;
+  /* 44px */
+  --font-size-9xl: 4.6rem;
+  /* 46px */
+  --font-size-10xl: 4.8rem;
+  /* 48px */
+  --font-size-11xl: 5.6rem;
+  /* 56px */
+  --font-size-12xl: 6.4rem;
+  /* 64px */
+  --font-size-13xl: 6.6rem;
+  /* 66px */
+  --font-size-14xl: 7.2rem;
+  /* 72px */
+
+  /* ------------- Line Height ------------- */
+  --line-height-2xs: 90%;
+  --line-height-xs: 100%;
+  --line-height-s: 110%;
+  --line-height-m: 115%;
+  --line-height-l: 120%;
+  --line-height-xl: 130%;
+  --line-height-2xl: 140%;
+  --line-height-3xl: 160%;
+
+  /* ------------- Font weight ------------- */
+  --font-weight-subtitle: 600;
+  --font-weight-heading: 500;
+  --font-weight-body: 400;
 }
 
 /* Base Styles */
@@ -72,7 +186,6 @@ button,
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   background-color: var(--color-primary-bg);
   border: none;
   cursor: pointer;
@@ -95,7 +208,6 @@ button,
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   background-color: var(--color-secondary-bg);
   border: none;
   cursor: pointer;
@@ -169,7 +281,7 @@ button,
 }
 
 /* -- Primary Outline Button -- */
-.button-primary-outline {
+.primary-outline-button {
   background-color: transparent;
   color: var(--text-primary);
   border: 1px solid var(--text-primary);
@@ -181,9 +293,17 @@ button,
   font-family: var(--font-secondary);
 }
 
-.button-primary-outline:hover {
+.primary-outline-button:hover {
   background-color: var(--text-primary);
   color: white;
+}
+
+.primary-outline-button .arrow-icon svg path {
+  fill: var(--color-primary-text);
+}
+
+.primary-outline-button:hover .arrow-icon svg path {
+  fill: white;
 }
 
 /* -- Secondary Outline Button -- */
@@ -203,6 +323,140 @@ button,
   background-color: var(--text-secondary);
   color: white;
 }
+
+/*-------- Second type :: primary button starts -----------*/
+
+.button--primary {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--spacing-s) - var(--spacing-3xs))
+    calc(var(--spacing-l) - var(--spacing-2xs));
+  height: calc(var(--spacing-3xl) + var(--spacing-3xs));
+  cursor: pointer;
+  font-family: var(--primary-font-body-family);
+  font-size: calc(var(--spacing-m) - var(--spacing-3xs));
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: var(--color-cta-inverse);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--color-cta-primary);
+  border: none;
+  border-radius: var(--primary-button-border-radius);
+  /* 4px */
+}
+
+@media screen and (max-width: 749px) {
+  .button--primary,
+  .primary-button {
+    width: 100%;
+  }
+}
+
+/*--------secondary button starts-----------*/
+.button--secondary {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--spacing-s) - var(--spacing-3xs))
+    calc(var(--spacing-l) - var(--spacing-2xs));
+  height: calc(var(--spacing-3xl) + var(--spacing-3xs));
+  cursor: pointer;
+  font-family: var(--primary-font-body-family);
+  font-size: calc(var(--spacing-m) - var(--spacing-3xs));
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  color: var(--color-cta-secondary);
+  -webkit-appearance: none;
+  appearance: none;
+  border: 1px solid var(--color-cta-secondary);
+  border-radius: var(--secondary-button-border-radius);
+}
+
+@media screen and (max-width: 749px) {
+  .button--secondary,
+  .secondary-button {
+    width: 100%;
+  }
+}
+
+.button--secondary-black {
+  font-family: var(--primary-font-body-family);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--spacing-s) - var(--spacing-3xs))
+    calc(var(--spacing-l) - var(--spacing-2xs));
+  height: calc(var(--spacing-3xl) + var(--spacing-3xs));
+  cursor: pointer;
+  font-size: calc(var(--spacing-m) - var(--spacing-3xs));
+  font-weight: 400;
+  letter-spacing: 0px;
+  line-height: 100%;
+  text-decoration: none;
+  -webkit-appearance: none;
+  appearance: none;
+  color: var(--color-typography-primary-black);
+  border: 1px solid var(--color-brand-secondary);
+  border-radius: var(--secondary-button-border-radius);
+  background-color: var(--color-background-inverse);
+  /* #FFFFFF */
+}
+
+@media screen and (max-width: 749px) {
+  .button--secondary-black {
+    width: 100%;
+  }
+}
+
+.button.primary {
+  background-color: var(--color-cta-primary);
+  color: var(--color-cta-inverse);
+  font-weight: 400;
+}
+
+.button.secondary {
+  color: var(--color-cta-secondary);
+  border: var(--spacing-4xs) solid var(--color-cta-secondary);
+}
+
+.button.fill {
+  background-color: var(--color-cta-secondary);
+  color: var(--color-cta-inverse);
+}
+
+.button.primary:hover {
+  background-color: var(--color-cta-primary-hover);
+}
+
+.button.secondary:hover {
+  background-color: var(--color-cta-secondary-hover);
+}
+
+.button.fill:hover {
+  background-color: var(--color-cta-secondary-hover);
+}
+
+.button--primary:hover {
+  background-color: var(--color-cta-primary-hover);
+}
+
+.button--secondary:hover {
+  color: var(--color-cta-secondary-hover);
+  border: 1px solid var(--color-cta-secondary-hover);
+}
+
+.button--secondary-black:hover {
+  color: var(--color-cta-secondary-hover);
+  border: 1px solid var(--color-cta-secondary-hover);
+}
+
+/* ------------- Button End ------------- */
 
 /* Utility */
 
