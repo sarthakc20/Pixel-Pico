@@ -134,7 +134,7 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "desktop_media_type": "image",
+        "desktop_media_type": "video",
         "desktop_image": "shopify://shop_images/df194a735e08372d40f681ff3f01637f_jpg_960x960q80_jpg.webp",
         "desktop_video": "shopify://files/videos/2a174c1e5e954e5b93c5bffbf480a88f.mp4",
         "mobile_media_type": "image",
@@ -199,7 +199,7 @@
         "content_layout": "overlap",
         "height": "medium",
         "desktop_image_width": "medium",
-        "layout": "image_first",
+        "layout": "text_first",
         "desktop_content_position": "middle",
         "desktop_content_alignment": "left",
         "section_color_scheme": "",
