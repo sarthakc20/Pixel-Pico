@@ -11,7 +11,7 @@
         </div>
       </button>
       <div class="header-title">
-        <h3>{{ section.settings.header_title }}</h3>
+        <h2>{{ section.settings.header_title }}</h2>
       </div>
       <div class="desktop-only">
         <p class="caption-text">{{ section.settings.header_caption }}</p>
@@ -54,8 +54,8 @@
       <img src="{{ section.settings.banner_image | img_url: 'master' }}" alt="Banner Image" style="width:100%;">
     {% endif %}
     <div class="custom-banner-content desktop-only">
-      <h2>{{ section.settings.banner_title }}</h2>
-      <p class="banner-subtitle">{{ section.settings.banner_subtitle_desktop }}</p>
+      <h2 style="color: {{ section.settings.heading_color_scheme }};">{{ section.settings.banner_title }}</h2>
+      <p class="banner-subtitle" style="color: {{ section.settings.subtitle_color_scheme }};">{{ section.settings.banner_subtitle_desktop }}</p>
       <a href="{{ section.settings.banner_button_link }}" class="primary-button">
         <span>{{- section.settings.banner_button_text -}}</span>
         <span class="arrow-icon">
@@ -119,9 +119,21 @@
       "label": "Banner Title"
     },
     {
+      "type": "color",
+      "id": "heading_color_scheme",
+      "label": "Banner Title Text Color (Desktop)",
+      "default": "#fff544"
+    },
+    {
       "type": "text",
       "id": "banner_subtitle_desktop",
       "label": "Banner Subtitle (Desktop)"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color_scheme",
+      "label": "Banner Subtitle Text Color (Desktop)",
+      "default": "#ffffff"
     },
     {
       "type": "text",
