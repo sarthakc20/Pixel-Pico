@@ -1,0 +1,85 @@
+{% comment %}
+  Snippet: video-image-grid
+{% endcomment %}
+
+{{ 'video-image-grid.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .video-image-grid-deatils{
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+    .video-image-grid{
+      gap: {{ section.settings.gap_grid_desktop }}px;
+    }
+    @media (max-width: 768px) {
+    .video-image-grid{
+        gap: {{ section.settings.gap_grid_mobile }}px;
+      }
+      .video-image-grid-deatils{
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    }
+    }
+{%- endstyle -%}
+
+<div class="video-image-grid-deatils">
+  <div class="video-image-grid-caption">
+    <div class="video-image-grid-caption-title">
+      <h2>{{ section.settings.caption_title }}</h2>
+    </div>
+    <div class="video-image-grid-caption-subtitle">
+      <h3>{{ section.settings.caption_subtitle }}</h3>
+    </div>
+  </div>
+  <div class="video-image-grid landscape {% if section.settings.mobile_aspect == 'portrait' %}portrait{% endif %}">
+    {% for block in section.blocks %}
+      {% assign aspect = section.settings.aspect %}
+      <div class="media-item {{ block.settings.text_position }}">
+        <div class="media-wrapper">
+          <div class="media-desktop">
+            {% if block.settings.video_desktop %}
+              <div class="video-wrapper">
+                <image-video-container class="media-content">
+                  {{
+                    block.settings.video_desktop
+                    | video_tag:
+                      autoplay: block.settings.video_autoplay_desktop,
+                      loop: block.settings.video_loop_desktop,
+                      controls: false,
+                      muted: true,
+                      video_mute_icon_enable: block.settings.video_mute_icon_enable_desktop
+                  }}
+                  {% if block.settings.video_desktop %}
+                    <div class="video-controller-video-image-gallery bottom-right">
+                      {% render 'video-controller',
+                        enable_sound_control: block.settings.video_mute_icon_enable_desktop
+                      %}
+                    </div>
+                  {% endif %}
+                </image-video-container>
+              </div>
+            {% elsif block.settings.image_desktop %}
+              <img
+                src="{{ block.settings.image_desktop | img_url: '720x' }}"
+                alt="{{ block.settings.title | escape }}"
+                class="media-content"
+              >
+            {% endif %}
+          </div>
+
+          {% if block.settings.title or block.settings.subtitle %}
+            <div class="media-text {{ section.settings.text_position }}">
+              {% if block.settings.title %}
+                <h3 class="media-title">{{ block.settings.title }}</h3>
+              {% endif %}
+              {% if block.settings.subtitle %}
+                <p class="media-subtitle">{{ block.settings.subtitle }}</p>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

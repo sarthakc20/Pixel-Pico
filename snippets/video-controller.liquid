@@ -1,0 +1,36 @@
+{% comment %}
+  ------------------------------------------------------------------------------
+    Snippet: Video Controller
+    - Used to display the video controller for the video player.
+    - In this video controller have pay, pause, mute and sound button.
+
+    Accepts:
+    - enable_sound_control: {Boolean} Enable sound control (optional)
+
+    Usage:
+    {% render 'video-controller', enable_sound_control: true %}
+  ------------------------------------------------------------------------------
+{% endcomment %}
+
+{{ 'video-controller.css' | asset_url | stylesheet_tag }}
+
+<div class="video-controller">
+  {% if enable_sound_control %}
+    <div class="video-sound-control">
+      <span class="mute-button">
+        {{ 'icon-mute.svg' | inline_asset_content }}
+      </span>
+      <span class="sound-button display-none">
+        {{ 'icon-sound.svg' | inline_asset_content }}
+      </span>
+    </div>
+  {% endif %}
+  <div class="video-play-pause-control">
+    <span class="play-button" role="button" tabindex="0" aria-label="Play video">
+      {% render 'icon-play' %}
+    </span>
+    <span class="pause-button display-none" role="button" tabindex="0" aria-label="Pause video">
+      {% render 'icon-pause' %}
+    </span>
+  </div>
+</div>

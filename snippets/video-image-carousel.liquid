@@ -1,0 +1,127 @@
+{% comment %}
+  Snippet: video-image-carousel
+{% endcomment %}
+
+{{ 'video-image-carousel.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+
+  .video-image-carousel{
+    padding-top: {{ section.settings.padding_top_desktop }}px;
+    padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+  }
+
+  .video-image-carousel-slider .slider{
+    gap:{{ section.settings.gap_carousel_desktop }}px;
+  }
+  @media (max-width: 768px) {
+  .video-image-carousel-slider .slider{
+      gap:{{ section.settings.gap_carousel_mobile }}px;
+    }
+  .video-image-carousel{
+  padding-top: {{ section.settings.padding_top_mobile }}px;
+  padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+  }
+{%- endstyle -%}
+
+<div class="video-image-carousel landscape {% if section.settings.mobile_aspect == 'portrait' %}portrait{% endif %}">
+  <div class="video-image-carousel-caption ">
+    <div class="video-image-carousel-caption-title">
+      <h2>{{ section.settings.caption_title }}</h2>
+    </div>
+    <div class="video-image-carousel-caption-subtitle">
+      <h3>{{ section.settings.caption_subtitle }}</h3>
+    </div>
+  </div>
+  <slider-component
+    class="video-image-carousel-slider"
+    data-rotation-speed="{{ section.settings.rotation_speed | times: 1000 }}"
+    data-auto-rotate="{{ section.settings.auto_rotate }}"
+  >
+    <ul class="slider" id="Slider-{{ section.id }}">
+      {% for block in section.blocks %}
+        <li
+          id="Slide-{{ section.id }}-{{ forloop.index }}"
+          class="media-item"
+          role="listitem"
+        >
+          <div class="media-wrapper">
+            <div class="media-desktop">
+              {% if block.settings.video_desktop %}
+                <div class="video-wrapper">
+                  <image-video-container class="media-content-slider">
+                    {{
+                      block.settings.video_desktop
+                      | video_tag:
+                        autoplay: block.settings.video_autoplay_desktop,
+                        loop: block.settings.video_loop_desktop,
+                        controls: false,
+                        muted: true,
+                        video_mute_icon_enable: block.settings.video_mute_icon_enable_desktop
+                    }}
+                    {% if block.settings.video_desktop %}
+                      <div class="video-controller-video-image-gallery bottom-right">
+                        {% render 'video-controller',
+                          enable_sound_control: block.settings.video_mute_icon_enable_desktop
+                        %}
+                      </div>
+                    {% endif %}
+                  </image-video-container>
+                </div>
+              {% elsif block.settings.image_desktop %}
+                <img
+                  src="{{ block.settings.image_desktop | img_url: '720x' }}"
+                  alt="{{ block.settings.title | escape }}"
+                  class="media-content-slider"
+                >
+              {% endif %}
+            </div>
+
+            {% if block.settings.title or block.settings.subtitle %}
+              <div class="media-text {{ section.settings.text_position }}">
+                {% if block.settings.title %}
+                  <h3 class="media-title">{{ block.settings.title }}</h3>
+                {% endif %}
+                {% if block.settings.subtitle %}
+                  <p class="media-subtitle">{{ block.settings.subtitle }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <div class="slider__dots banner_slider__dots video_image_carousal_dots"></div>
+    <div
+      class="slider-buttons slider video-image-carousel-buttons"
+      style="{% if section.settings.show_navigation == false %}display: none;{% endif %}"
+    >
+      <button
+        type="button"
+        class="slider-button slider-button--prev"
+        name="previous"
+        aria-label="Previous Slide"
+      >
+        <span class="video-carousel-prev-icon svg-wrapper scroller left-scroll">
+          <svg>
+            {{- 'left-scroll.svg' | inline_asset_content -}}
+          </svg>
+        </span>
+      </button>
+      <button
+        type="button"
+        class="slider-button slider-button--next"
+        name="next"
+        aria-label="Next Slide"
+      >
+        <span class="video-carousel-next-icon svg-wrapper scroller right-scroll">
+          <svg>
+            {{- 'right-scroll.svg' | inline_asset_content -}}
+          </svg>
+        </span>
+      </button>
+    </div>
+  </slider-component>
+</div>

@@ -474,3 +474,18 @@ button,
   display: inline-block;
   font-family: var(--font-secondary);
 }
+
+.flex-container {
+  display: flex;
+  margin-bottom: 2rem;
+  padding: 0;
+  list-style: none;
+  column-gap: var(--spacing-s);
+  row-gap: var(--spacing-xs);
+}
+
+@media screen and (max-width: 749px) {
+  .flex-container {
+    flex-wrap: wrap;
+  }
+}
