@@ -90,7 +90,16 @@
               {%- elsif mobile_media_type == 'video' and mobile_video != blank -%}
                 <div class="only-mobile">
                   <div class="image-with-text__media image-with-text__media--{{ section.settings.height }} gradient color-scheme-1 media img-container-size">
-                    {% render 'video-controller' %}
+                    {% render 'video-player',
+                      class_video: 'video-js',
+                      class_play_button: 'banner__media-video-play button-reset',
+                      class_pause_button: 'banner__media-video-pause button-reset',
+                      video: mobile_video,
+                      image_size: '1200x',
+                      autoplay: true,
+                      loop: true,
+                      muted: true
+                    %}
                   </div>
                 </div>
               {%- endif -%}
@@ -167,7 +176,16 @@
               {%- elsif mobile_media_type == 'video' and mobile_video != blank -%}
                 <div class="only-mobile">
                   <div class="image-with-text__media image-with-text__media--{{ section.settings.height }} gradient color-scheme-1 media img-container-size">
-                    {% render 'video-controller' %}
+                    {% render 'video-player',
+                      class_video: 'video-js',
+                      class_play_button: 'banner__media-video-play button-reset',
+                      class_pause_button: 'banner__media-video-pause button-reset',
+                      video: mobile_video,
+                      image_size: '1200x',
+                      autoplay: true,
+                      loop: true,
+                      muted: true
+                    %}
                   </div>
                 </div>
               {%- endif -%}

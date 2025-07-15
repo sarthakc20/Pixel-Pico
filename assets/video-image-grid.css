@@ -57,7 +57,7 @@ h3 {
 
 .media-text.inside {
   bottom: var(--spacing-l);
-  color: var(--color-background-inverse);
+  color: var(--color-lightest);
   font-family: var(--primary-font-body-family);
   left: var(--spacing-m);
   padding-right: calc(var(--spacing-10xl) + var(--spacing-s));
@@ -71,9 +71,12 @@ h3 {
   margin: 0;
 }
 
-.video-image-grid.landscape .inside .media-title,
-.video-image-grid.portrait .inside .media-title {
-  color: var(--color-background-inverse);
+.media-text.inside .media-title {
+  color: var(--color-lightest);
+}
+
+.media-text.outside .media-title {
+  color: var(--text-accent);
 }
 
 .media-subtitle {
@@ -85,7 +88,7 @@ h3 {
 }
 
 .media-text.outside {
-  color: var(--color-background-secondary-dark);
+  color: var(--text-accent);
   font-family: var(--primary-font-body-family);
   margin-top: var(--spacing-l);
   position: static;
@@ -94,7 +97,7 @@ h3 {
 
 .video-image-grid.landscape .outside .media-title,
 .video-image-grid.portrait .outside .media-title {
-  color: var(--color-background-secondary-dark);
+  color: var(--text-accent);
 }
 
 .video-image-grid.landscape .outside .media-subtitle,
