@@ -1,0 +1,249 @@
+{% comment %}
+  Section: video-image-gallery
+  Purpose: Switches between a grid or carousel layout for video-image blocks.
+{% endcomment %}
+
+
+
+<div class="video-image-gallery">
+  {% case section.settings.layout %}
+    {% when 'grid' %}
+      {% render 'video-image-grid', section: section %}
+    {% when 'carousel' %}
+      {% render 'video-image-carousel', section: section %}
+  {% endcase %}
+</div>
+
+{% schema %}
+{
+  "name": "Video Image Gallery",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video Image Gallery Settings"
+    },
+    {
+      "type": "text",
+      "id": "caption_title",
+      "label": "Caption Title"
+    },
+    {
+      "type": "text",
+      "id": "caption_subtitle",
+      "label": "Caption Subtitle"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding Top (Desktop)",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "info": "Set the top padding for desktop (in pixels)."
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding Bottom (Desktop)",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "info": "Set the bottom padding for desktop (in pixels)."
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top (Mobile)",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "info": "Set the top padding for mobile (in pixels)."
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom (Mobile)",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "info": "Set the bottom padding for mobile (in pixels)."
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Orientation",
+      "options": [
+        { "value": "grid", "label": "Stacked" },
+        { "value": "carousel", "label": "Carousel" }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "select",
+      "id": "mobile_aspect",
+      "label": "Mobile Media",
+      "options": [
+        { "value": "landscape", "label": "Small" },
+        { "value": "portrait", "label": "Large" }
+      ],
+      "default": "landscape"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Desktop Text Position",
+      "options": [
+        { "value": "inside", "label": "Inside" },
+        { "value": "outside", "label": "Outside" }
+      ],
+      "default": "inside"
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show Naviagtion Buttons",
+      "default": true,
+      "info": "Check this box to show naviagation buttons on top right."
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "label": "Enable Auto Rotate",
+      "default": true,
+      "info": "Check this box to enable automatic rotation of the banner."
+    },
+    {
+      "type": "range",
+      "id": "rotation_speed",
+      "label": "Rotation Speed (in seconds)",
+      "default": 5,
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "info": "Set the time interval for the banner to rotate automatically."
+    },
+    {
+      "type": "range",
+      "id": "gap_carousel_desktop",
+      "label": "Gap Between Cards (Desktop)",
+      "default": 16,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "info": "Set the gap between cards for Desktop"
+    },
+    {
+      "type": "range",
+      "id": "gap_carousel_mobile",
+      "label": "Gap Between Cards (Mobile)",
+      "default": 8,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "info": "Set the gap between cards for Mobile"
+    },
+    {
+      "type": "header",
+      "content": "Stacked Settings"
+    },
+    {
+      "type": "range",
+      "id": "gap_grid_desktop",
+      "label": "Gap Between Cards (Desktop)",
+      "default": 16,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "info": "Set the gap between cards for desktop"
+    },
+    {
+      "type": "range",
+      "id": "gap_grid_mobile",
+      "label": "Gap Between Cards (Mobile)",
+      "default": 16,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "info": "Set the gap between cards for Mobile"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "media_item",
+      "name": "Media Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video_desktop",
+          "label": "Video"
+        },
+        {
+          "type": "checkbox",
+          "id": "video_autoplay_desktop",
+          "label": "Autoplay Video",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "video_loop_desktop",
+          "label": "Loop Video",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "video_mute_icon_enable_desktop",
+          "label": "Show Mute Button",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Image Gallery",
+      "category": "Media",
+      "blocks": [
+        {
+          "type": "media_item"
+        },
+        {
+          "type": "media_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

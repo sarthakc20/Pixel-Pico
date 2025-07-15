@@ -735,20 +735,36 @@ class SliderComponent extends HTMLElement {
     this.pageTotalElement = this.querySelector('.slider-counter--total');
     this.prevButton = this.querySelector('button[name="previous"]');
     this.nextButton = this.querySelector('button[name="next"]');
-
+    this.dotsContainer = this.querySelector('.slider__dots');
+    this.rotationSpeed = parseInt(this.dataset.rotationSpeed) || 5000; // Default to 5000ms (5 seconds)
+    this.autoRotate = this.dataset.autoRotate === 'true'; // Read the auto-rotate setting
+    this.imgSlides = this.querySelectorAll(".zoom-carousel-wrapper.slider li");
     if (!this.slider || !this.nextButton) return;
 
     this.initPages();
-    const resizeObserver = new ResizeObserver((entries) => this.initPages());
+    const resizeObserver = new ResizeObserver(() => {
+      this.initPages(); // Recalculate pages
+      this.createDots(); // Recreate dots after recalculating pages
+      this.updateDots(); // Update dots to reflect the current page
+    });
     resizeObserver.observe(this.slider);
 
     this.slider.addEventListener('scroll', this.update.bind(this));
     this.prevButton.addEventListener('click', this.onButtonClick.bind(this));
     this.nextButton.addEventListener('click', this.onButtonClick.bind(this));
+
+    this.createDots();
+    this.updateDots();
+
+    // Start auto-rotation if enabled
+    if (this.autoRotate) {
+      this.startAutoRotation();
+    }
   }
 
   initPages() {
     this.sliderItemsToShow = Array.from(this.sliderItems).filter((element) => element.clientWidth > 0);
+
     if (this.sliderItemsToShow.length < 2) return;
     this.sliderItemOffset = this.sliderItemsToShow[1].offsetLeft - this.sliderItemsToShow[0].offsetLeft;
     this.slidesPerPage = Math.floor(
@@ -763,51 +779,65 @@ class SliderComponent extends HTMLElement {
     this.initPages();
   }
 
+
   update() {
-    // Temporarily prevents unneeded updates resulting from variant changes
-    // This should be refactored as part of https://github.com/Shopify/dawn/issues/2057
     if (!this.slider || !this.nextButton) return;
 
-    const previousPage = this.currentPage;
-    this.currentPage = Math.round(this.slider.scrollLeft / this.sliderItemOffset) + 1;
+  const previousPage = this.currentPage;
+  this.currentPage = Math.round(this.slider.scrollLeft / this.sliderItemOffset) + 1;
 
-    if (this.currentPageElement && this.pageTotalElement) {
-      this.currentPageElement.textContent = this.currentPage;
-      this.pageTotalElement.textContent = this.totalPages;
-    }
+  if (this.currentPageElement && this.pageTotalElement) {
+    this.currentPageElement.textContent = this.currentPage;
+    this.pageTotalElement.textContent = this.totalPages;
+  }
 
-    if (this.currentPage != previousPage) {
-      this.dispatchEvent(
-        new CustomEvent('slideChanged', {
-          detail: {
-            currentPage: this.currentPage,
-            currentElement: this.sliderItemsToShow[this.currentPage - 1],
-          },
-        })
-      );
-    }
+  if (this.currentPage != previousPage) {
+    this.dispatchEvent(
+      new CustomEvent('slideChanged', {
+        bubbles: true,
+        detail: {
+          currentPage: this.currentPage,
+          currentElement: this.sliderItemsToShow[this.currentPage - 1],
+        },
+      })
+    );
+  }
 
-    if (this.enableSliderLooping) return;
+  if (this.enableSliderLooping) return;
 
-    if (this.isSlideVisible(this.sliderItemsToShow[0]) && this.slider.scrollLeft === 0) {
+  if (this.isSlideVisible(this.sliderItemsToShow[0]) && this.slider.scrollLeft === 0) {
+    if(this.prevButton.dataset.section !== "product-media-gallery") {
       this.prevButton.setAttribute('disabled', 'disabled');
-    } else {
-      this.prevButton.removeAttribute('disabled');
     }
+  } else {
+    this.prevButton.removeAttribute('disabled');
 
     if (this.isSlideVisible(this.sliderItemsToShow[this.sliderItemsToShow.length - 1])) {
-      this.nextButton.setAttribute('disabled', 'disabled');
+      if(this.prevButton.dataset.section !== "product-media-gallery"){
+        this.nextButton.setAttribute('disabled', 'disabled');
+      }
     } else {
       this.nextButton.removeAttribute('disabled');
     }
+    this.updateDots();
   }
+  const lastSlide = this.sliderItemsToShow[this.sliderItemsToShow.length - 1];
+  const tolerance = 2; // Adjust this value if needed
+  if (this.slider.scrollLeft + this.slider.clientWidth >= lastSlide.offsetLeft + lastSlide.clientWidth - tolerance) {
+      if(this.prevButton.dataset.section !== "product-media-gallery"){
+        this.nextButton.setAttribute('disabled', 'disabled');
+      }
+    } else {
+    this.nextButton.removeAttribute('disabled');  
+  }
+}
 
   isSlideVisible(element, offset = 0) {
     const lastVisibleSlide = this.slider.clientWidth + this.slider.scrollLeft - offset;
     return element.offsetLeft + element.clientWidth <= lastVisibleSlide && element.offsetLeft >= this.slider.scrollLeft;
   }
 
-  onButtonClick(event) {
+  onButtonClick(event) {    
     event.preventDefault();
     const step = event.currentTarget.dataset.step || 1;
     this.slideScrollPosition =
@@ -822,7 +852,55 @@ class SliderComponent extends HTMLElement {
       left: position,
     });
   }
+
+  createDots() {
+    this.dotsContainer.innerHTML = ''; // Clear existing dots
+    for (let i = 0; i < this.totalPages; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      dot.innerHTML = ' ';
+      dot.dataset.index = i + 1;
+      dot.addEventListener('click', () => this.scrollToPage(i + 1));
+      this.dotsContainer.appendChild(dot);
+    }
+    this.querySelectorAll('.dot')[0]?.classList.add('active');
+  }
+
+  updateDots() {
+    if (!this.dotsContainer) return;
+    const dots = this.dotsContainer.querySelectorAll('.dot');
+    dots.forEach((dot,idx) => {
+      dot.classList.toggle('active', parseInt(dot.dataset.index) === this.currentPage);
+      // Update the active state of <li> elements
+      this.imgSlides.forEach((slide, i) => {
+        if (i === idx) {
+          slide.classList.add("active");
+          slide.removeAttribute("aria-hidden"); // Enable the active slide
+        } else {
+          slide.classList.remove("active");
+          slide.setAttribute("aria-hidden", "true"); // Disable other slides
+        }
+      });
+    });
+  }
+
+  scrollToPage(page) {
+    const position = (page - 1) * this.sliderItemOffset;
+    this.setSlidePosition(position);
+  }
+
+  startAutoRotation() {
+    this.autoRotationInterval = setInterval(() => {
+      const nextPage = this.currentPage + 1 > this.totalPages ? 1 : this.currentPage + 1;
+      this.scrollToPage(nextPage);
+    }, this.rotationSpeed);
+  }
+
+  stopAutoRotation() {
+    clearInterval(this.autoRotationInterval);
+  }
 }
+
 
 customElements.define('slider-component', SliderComponent);
 
@@ -1330,3 +1408,168 @@ class CartPerformance {
     );
   }
 }
+
+class ImageVideoContainer extends HTMLElement {
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    const video = this.querySelector('video');
+    this.addVideoPlayPauseToggle(video);
+    this.addSoundMuteUnmuteToggle(video);
+  }
+
+  addVideoPlayPauseToggle(video) {
+    const playPauseBtn = this.querySelector('.video-play-pause-control');
+    const playIcon = playPauseBtn?.querySelector('.play-button');
+    const pauseIcon = playPauseBtn?.querySelector('.pause-button');
+
+    if (video && playPauseBtn) {
+      // Initial setup based on the video playing state
+      video.addEventListener('play', () => {
+        playIcon.classList.add('display-none'); // Hide play icon
+        pauseIcon.classList.remove('display-none'); // Show pause icon
+      });
+
+      video.addEventListener('pause', () => {
+        playIcon.classList.remove('display-none'); // Show play icon
+        pauseIcon.classList.add('display-none'); // Hide pause icon
+      });
+
+      // Set initial state based on whether the video is autoplaying or paused
+      if (video.paused) {
+        playIcon?.classList.remove('display-none'); // Show play icon
+        pauseIcon?.classList.add('display-none'); // Hide pause icon
+      } else {
+        playIcon?.classList.add('display-none'); // Hide play icon
+        pauseIcon?.classList.remove('display-none'); // Show pause icon
+      }
+
+      // Add event listener to toggle play/pause on button click
+      playPauseBtn.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+    }
+  }
+
+  addSoundMuteUnmuteToggle(video) {
+    const muteUnmuteBtn = this.querySelector('.video-sound-control');
+    const muteIcon = muteUnmuteBtn?.querySelector('.mute-button');
+    const soundIcon = muteUnmuteBtn?.querySelector('.sound-button');
+
+    if (video && muteUnmuteBtn) {
+      // Add event listener to toggle mute/unmute on button click
+      muteUnmuteBtn.addEventListener('click', () => {
+        if (video.muted) {
+          video.muted = false;
+          muteIcon?.classList.add('display-none'); // Show mute icon
+          soundIcon?.classList.remove('display-none'); // Hide unmute icon
+        } else {
+          video.muted = true;
+          muteIcon?.classList.remove('display-none'); // Hide mute icon
+          soundIcon?.classList.add('display-none'); // Show unmute icon
+        }
+      });
+    }
+
+  }
+
+}
+
+customElements.define('image-video-container', ImageVideoContainer);
+
+
+// This component is only for image-banner which is customized as per the video-controls needs
+
+class CustomImageVideoContainer extends HTMLElement {
+  constructor() {
+    super();
+    this.hasInitialized = false; // Prevent multiple initializations
+  }
+ 
+  connectedCallback() {
+    if (this.hasInitialized) return;
+    this.hasInitialized = true;
+ 
+    const video = this.querySelector('video');
+    if (!video) {
+      console.error('Video element not found');
+      return;
+    }
+ 
+    const playPauseBtn = this.querySelector('.video-play-pause-control');
+    const muteUnmuteBtn = this.querySelector('.video-sound-control');
+ 
+    if (!playPauseBtn || !muteUnmuteBtn) {
+      console.error('Control buttons not found');
+      return;
+    }
+ 
+    this.addVideoPlayPauseToggle(video);
+    this.addSoundMuteUnmuteToggle(video);
+  }
+ 
+  addVideoPlayPauseToggle(video) {
+  const playPauseBtn = this.querySelector('.video-play-pause-control');
+  const playIcon = playPauseBtn?.querySelector('.play-button');
+  const pauseIcon = playPauseBtn?.querySelector('.pause-button');
+
+  if (video && playPauseBtn) {
+    // Update play/pause icons based on video state
+    video.addEventListener('play', () => {
+      playIcon?.classList.add('display-none'); // Hide play icon
+      pauseIcon?.classList.remove('display-none'); // Show pause icon
+    });
+
+    video.addEventListener('pause', () => {
+      playIcon?.classList.remove('display-none'); // Show play icon
+      pauseIcon?.classList.add('display-none'); // Hide pause icon
+    });
+
+    // Set initial state based on whether the video is autoplaying or paused
+    if (video.paused) {
+      playIcon?.classList.remove('display-none'); // Show play icon
+      pauseIcon?.classList.add('display-none'); // Hide pause icon
+    } else {
+      playIcon?.classList.add('display-none'); // Hide play icon
+      pauseIcon?.classList.remove('display-none'); // Show pause icon
+    }
+
+    // Add event listener to toggle play/pause on button click
+    playPauseBtn.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+  }
+}
+ 
+  addSoundMuteUnmuteToggle(video) {
+    const muteUnmuteBtn = this.querySelector('.video-sound-control');
+    const muteIcon = muteUnmuteBtn?.querySelector('.mute-button');
+    const soundIcon = muteUnmuteBtn?.querySelector('.sound-button');
+ 
+    if (video && muteUnmuteBtn) {
+      muteUnmuteBtn.addEventListener('click', () => {
+        if (video.muted) {
+          video.muted = false;
+          muteIcon?.classList.add('display-none');
+          soundIcon?.classList.remove('display-none');
+        } else {
+          video.muted = true;
+          muteIcon?.classList.remove('display-none');
+          soundIcon?.classList.add('display-none');
+        }
+      });
+    }
+  }
+}
+ 
+customElements.define('custom-image-video-container', CustomImageVideoContainer);

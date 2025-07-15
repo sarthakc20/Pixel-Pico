@@ -1,0 +1,35 @@
+.video-controller {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  height: 49px;
+  position: relative;
+}
+
+.video-play-pause-control,
+.video-sound-control {
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* .video-play-pause-control{
+    border: 1px solid var(--color-cta-inverse);
+    border-radius: 50%;
+    padding: 0.5rem;
+    width: 49px;
+    height: 49px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+:is(.video-play-pause-control, .video-sound-control):hover {
+  opacity: 1;
+  transform: scale();
+  transition: opacity 0.2s ease-in-out;
+}
+
+.display-none {
+  display: none;
+}
