@@ -1,0 +1,125 @@
+{{ 'component-shoppable-image.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'shoppable-image.js' | asset_url }}" defer="defer"></script>
+
+<div>
+  <div class="shoppable-section">
+    {% if section.settings.image != blank %}
+      <img src="{{ section.settings.image | image_url: width: 1500 }}" class="shoppable-image" alt="Shoppable image">
+
+      {% for block in section.blocks %}
+        {% assign top = block.settings.top_position | append: '%' %}
+        {% assign left = block.settings.left_position | append: '%' %}
+        <div
+          class="product-dot"
+          style="top: {{ top }}; left: {{ left }};"
+          data-dot-index="{{ forloop.index0 }}"
+          onclick="toggleDrawer()"
+        >
+          +
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <div id="drawer-backdrop" class="drawer-backdrop" onclick="handleDrawerOutsideClick(event)">
+    <div id="productDrawer" class="drawer-overlay">
+      <button onclick="toggleDrawer()" class="drawer-close-btn">✕</button>
+
+      <div class="heading">
+        <h2>Shop your choice</h2>
+      </div>
+
+      <div class="drawer-product-block">
+        {% for block in section.blocks %}
+          {% assign product = block.settings.product %}
+          {% if product != blank %}
+            <div class="drawer-product">
+              <div class="drawer-product-image">
+                <a href="{{ product.url }}">
+                  <img src="{{ product.featured_image | image_url: width: 100 }}" alt="{{ product.title }}">
+                </a>
+              </div>
+
+              <div class="drawer-product-info">
+                <div class="drawer-product-info-details">
+                  <a href="{{ product.url }}" class="drawer-product-title">{{ product.title }}</a>
+                  <div class="drawer-product-price">₹{{ product.price | money_without_trailing_zeros }}</div>
+                </div>
+                <div class="drawer-product-qucik-buy">
+                  {% assign variant_id = product.variants.first.id %}
+                  <button
+                    type="button"
+                    class="drawer-product-qucik-buy-button primary-button"
+                    data-variant-id="{{ variant_id }}"
+                  >
+                    <span>Quick buy</span>
+                    <span class="arrow-icon">
+                      {% render 'button-right-arrow-icon' %}
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              <a href="{{ product.url }}" class="drawer-product-icon">
+                <span class="svg-wrapper">
+                  {{ 'right-scroll.svg' | inline_asset_content }}
+                </span>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shoppable Image",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product-marker",
+      "name": "Product Marker",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        },
+        {
+          "type": "range",
+          "id": "top_position",
+          "label": "Top position (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "left_position",
+          "label": "Left position (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Shoppable Image Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
